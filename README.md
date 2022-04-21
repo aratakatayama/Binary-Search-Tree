@@ -65,5 +65,10 @@ def _insert(self, p, val):
 ```
 This helper method first checks if the value is smaller than the root or not. If it is, then we will recurse on the left child, and otherwise, recurse on the right child. The algorithm will keep recursing until it runs off the tree, and the location it runs off, is where the algorithm inserts the value. 
 
-### inOrder algorithm 
+### InOrder algorithm 
+```py
+def _inOrder(self, node):
+    yield from self._inOrder(node._left)
+    yield self._inOrder
+```
 
