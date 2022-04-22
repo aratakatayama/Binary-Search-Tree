@@ -65,7 +65,7 @@ class BST():
 
     def addOrIncrementDomainNameNode(self, domainName):
         # searches BST for domainName
-        node, found = self._search(self._root, domainName)
+        node, found = self.search(domainName)
         if found: # using the public method
             # increment reference count
             node._count += 1
