@@ -68,10 +68,60 @@ This helper method first checks if the value is smaller than the root or not. If
 ### InOrder algorithm 
 ```py
 def _inOrder(self, node):
-    yield from self._inOrder(node._left)
-    yield node._value, node._count
-    yield from self._inOrder(node._right)
+    if node:
+        yield from self._inOrder(node._left)
+        yield node._value, node._count
+        yield from self._inOrder(node._right)
 ```
-Generator which performs an inorder traversal. Inorder traversal should return the elements in the tree in ascending value order. 
+Generator which performs an inorder traversal only if node is not empty. Inorder traversal should return the elements in the tree in ascending value order. 
+
+### User methods
+```py
+def search(self, x):
+    return self._search(self._root, x)
+    
+def insert(self, val):
+    return self._insert(self._root, val)
+
+def inOrder(self):
+    yield from self._inOrder(self._root)
+```
+
+## Populating BST and Print Tree
+The objective of the populateBST algorithm:
+1. If the value is not in the tree, then create a new node a insert it in the right order
+2. If the value already exists, then increment the reference count by 1
+
+The objective of printTree algorithm:
+1. Print the elements in ascending order
+
+### Modifying the Search algorithm 
+We can search to see if the desired node exists or not. However, in the previous implementation it would only return a True if it finds the value anywhere in the tree, and a False if it doesn't. The populateBST algorithm not only needs to know if the value exists, however which node the value is contained in, so it when finds it, the algorithm can increment the reference count of that particular value. In order to do this, the following modification in the search alogirthm can be done: 
+```py
+if node == None:
+    return node, False # do not have to return node, however the return values must be consistent
+elif x == node._value:
+    return node, True
+```
+By returning the node containing value x, populateBST algorithm can easily know which node's reference count it should increment. 
+
+### PopulateBST algorithm
+```py
+def populateBST(self, val):
+    node, found = self.search(val)  # storing two values in variables
+    if found:
+        node._count += 1
+    else: 
+        self.insert(val)
+```
+
+### PrintTree algorithm
+```py
+def printTree(self):
+    for x, c in self.inOrder():
+        print(x, c)
+```
+
+
 
 
