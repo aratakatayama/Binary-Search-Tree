@@ -69,6 +69,9 @@ This helper method first checks if the value is smaller than the root or not. If
 ```py
 def _inOrder(self, node):
     yield from self._inOrder(node._left)
-    yield self._inOrder
+    yield node._value, node._count
+    yield from self._inOrder(node._right)
 ```
+Generator which performs an inorder traversal. Inorder traversal should return the elements in the tree in ascending value order. 
+
 
